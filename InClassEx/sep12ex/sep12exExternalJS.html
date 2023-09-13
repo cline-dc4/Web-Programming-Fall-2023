@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> My first JS example </title>
+        <script src="BasicJavascript.js"></script>
+    </head>
+    <body>
+        <h1> Some basic JavaScript </h1>
+        <h3> Inline onclick response </h3>
+
+        <button id="inlineButton" onclick=
+        "alert('You clicked a button')"> Inline </button>
+
+        <button onclick="alert(Date())"> Today's Date </button>
+        <h3> Embedded script response </h3>
+        <h4 id="resultH4"> Result </h4>
+        <button onclick="sumOf10Numbers()"> Calculate sum </button>
+        <h3> External JS with user input </h3>
+        <p> Enter in a number: </p>
+
+        <input type="text" id="maxNumberText">
+        <button onclick="sumOfNumbers()"> Calculate sum </button>
+        <h4 id="userInputSum"> Result </h4>
+    </body>
+</html>
