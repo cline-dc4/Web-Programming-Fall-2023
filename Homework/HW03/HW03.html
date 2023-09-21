@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> HW 3: DC </title>
+        <script src="HW03JS.js"></script>
+    </head>
+    <body>
+        <h2> Video Games </h2>
+
+        <!--Class description-->
+        <p> This class has 4 attributes:
+            <ol>
+                <li> Name (string)</li>
+                <li> Copies Sold (integer) </li>
+                <li> Rating (float) </li>
+                <li> Genre (String) </li>
+            </ol>
+            It includes some of the essential attributes a seller
+            would want to have listed on their webpage.
+        </p>
+        <h3> Adding objects </h3>
+
+        <!--Textfields for adding objects-->
+        <dl>
+            <dd> Enter the name of the game: </dd>
+            <dt><input id="name" type="text"></dt>
+
+            <dd> Enter the number of copies sold: </dd>
+            <dt><input id="copiesSold" type="text"></dt>
+
+            <dd> Enter the user rating of the game: </dd>
+            <dt><input id="rating" type="text"></dt>
+
+            <dd> Enter the genre the game is in: </dd>
+            <dt><input id="genre" type="text"></dt>
+        </dl>
+
+        <!--Buttons for adding objects-->
+        <p>
+            <button onclick="createGame(1)"> 
+                Create Game 1 </button>
+            <button onclick="createGame(2)"> 
+                Create Game 2 </button>
+        </p>
+
+        <!--Textfields and buttons for output-->
+        <ul>
+            <!--print game 1-->
+            <li>
+                Print Game 1: <br>
+                <input id="printOutput1" type="text" size="50"> <br>
+                <button onclick="printGame(1)"> Print </button>
+            </li>
+            <!--print game 2-->
+            <li>
+                Print Game 2: <br>
+                <input id="printOutput2" type="text" size="50"> <br>
+                <button onclick="printGame(2)"> Print </button>
+            </li>
+            <!--find larger integer-->
+            <li>
+                Compare Copies Sold: <br>
+                <input id="compareInt" type="text"> <br>
+                <button onclick="compareInt()"> Compare </button>
+            </li>
+            <!--find average of the ratings-->
+            <li>
+                Average Rating: <br>
+                <input id="average" type="text"> <br>
+                <button onclick="averageRating()"> Average </button>
+            </li>
+        </ul>
+    </body>
+</html>
