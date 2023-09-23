@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Misc. </title>
+        <script src="sep21ex.js"></script>
+    </head>
+    <body onload="createTable()">
+    <p> Adding elements dynamically, drag and drop </p>
+    <h2> Drag and drop </h2>
+    <h3 draggable="true" id="h3Drag" ondragstart="drag(event)"> Drag this </h3>
+
+    <h3 id="h3Drop" ondrop="drop(event)" ondragover="allowDrop(event)"> Drop here </h3>
+   
+    <h3> Dynamic tables </h3>
+    <table id="dynamicT" border="1">
+
+    </table>
+    </body>
+</html>
