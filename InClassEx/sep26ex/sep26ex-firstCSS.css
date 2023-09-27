@@ -1,0 +1,23 @@
+h1
+{
+    background-color:lightgoldenrodyellow;
+    font-family:papyrus;
+}
+
+h2
+{
+    background-color:lightgoldenrodyellow;
+    text-align:right;
+}
+
+h3
+{
+    background-color:darkslateblue;
+    font-family:Arial;
+}
+.header
+{
+    background-color:darkorchid;
+    font-family:Segoe UI;
+    color:rgb(247, 181, 247)
+}
