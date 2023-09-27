@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> HW4: DC</title>
+        <script src="HW04.js"></script>
+    </head>
+    <body>
+        <!--list for inputs of numRows and numColumns-->
+        <ul>
+            <li>
+                Input the number of rows here:<br>
+                <input id="numRows" type="text">
+            </li>
+            <li>
+                Input the number of columns here:<br>
+                <input id="numColumns" type="text">
+            </li>
+            <li><button onclick="createTable()">Submit</button></li>
+        </ul>
+        <!--table for coloring-->
+        <table id="colorTable" ondrop="drop(event)" ondragover="allowDrop(event)"></table>
+
+        <!--table with colors to choose from-->
+        <table>
+            
+        </table>
+    </body>
+</html>
