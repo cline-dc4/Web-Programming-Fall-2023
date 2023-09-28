@@ -17,7 +17,8 @@ function drop(event)
     // let h3String = document.getElementById(data).innerHTML;
     // event.target.innerHTML = h3String;
 
-    let color = event.style;
+    let color = event.dataTransfer.getData(StyleSheet, "background-color");
+    alert(color);
     event.target.setAttribute("style", color);
 }
 //end functions needed for drag and drop
@@ -39,6 +40,8 @@ function createTable()
             let cell = rows[i].insertCell();
             cell.setAttribute("style", "width: 40px;height: 40px")
             cell.setAttribute("ondrop", "drop(event)");
+            cell.setAttribute("ondragover", "allowDrop(event)")
+            cell.id = "cell" + i + j;
         }
     }
 }
