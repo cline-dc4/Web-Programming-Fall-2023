@@ -13,7 +13,7 @@ function drop(event)
 {
     event.preventDefault();
     let color = event.dataTransfer.getData("text");
-    alert(color);
+    // alert(color);
     event.target.setAttribute("style", "background-color:" + color + 
     ";width: 40px;height: 40px");
 }
