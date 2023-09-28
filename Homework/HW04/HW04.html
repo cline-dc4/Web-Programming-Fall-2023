@@ -26,23 +26,24 @@
         </ul>
         <!--table for coloring-->
         <table id="colorTable"></table>
-        
+
         <!--table with colors to choose from-->
         <table border="1">
             <tr>
-                <td class="colorCell" style="background-color:violet"
-                draggable="true"></td>
-                <td class="colorCell" style="background-color:slateblue"
-                draggable="true"></td>
-                <td class="colorCell" style="background-color:lightseagreen"
-                draggable="true"></td>
-                <td class="colorCell" style="background-color:darkcyan"
-                draggable="true"></td> 
-                <td class="colorCell" style="background-color:seagreen"
-                draggable="true"></td>
-                <td class="colorCell" style="background-color:darkgreen"
-                draggable="true"></td>
+                <td class="colorCell" id="violet" style="background-color:violet"
+                ondragstart="drag(event)" draggable="true"></td>
+                <td class="colorCell" id="slateblue" style="background-color:slateblue"
+                ondragstart="drag(event)" draggable="true"></td>
+                <td class="colorCell" id="lightseagreen" style="background-color:lightseagreen"
+                ondragstart="drag(event)" draggable="true"></td>
+                <td class="colorCell" id="darkcyan" style="background-color:darkcyan"
+                ondragstart="drag(event)" draggable="true"></td> 
+                <td class="colorCell" id="seagreen" style="background-color:seagreen"
+                ondragstart="drag(event)" draggable="true"></td>
+                <td class="colorCell" id="darkgreen" style="background-color:darkgreen"
+                ondragstart="drag(event)" draggable="true"></td>
             </tr>
         </table>
+        <button onclick="resetTable()">Reset Table</button>
     </body>
 </html>

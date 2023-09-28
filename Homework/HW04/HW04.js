@@ -12,14 +12,10 @@ function drag(event)
 function drop(event)
 {
     event.preventDefault();
-    // let data = event.dataTransfer.getData("text");
-    // alert(data);
-    // let h3String = document.getElementById(data).innerHTML;
-    // event.target.innerHTML = h3String;
-
-    let color = event.dataTransfer.getData(StyleSheet, "background-color");
+    let color = event.dataTransfer.getData("text");
     alert(color);
-    event.target.setAttribute("style", color);
+    event.target.setAttribute("style", "background-color:" + color + 
+    ";width: 40px;height: 40px");
 }
 //end functions needed for drag and drop
 
@@ -27,20 +23,20 @@ function drop(event)
 function createTable()
 {
     let table = document.getElementById("colorTable");
-    table.setAttribute("border", "1")
-    let rows = []
+    table.setAttribute("border", "1");
+    let rows = [];
     let numRows = Number(document.getElementById("numRows").value);
     let numColumns = Number(document.getElementById("numColumns").value);
 
     for (let i = 0; i < numRows; i++)
     {
-        rows[i] = table.insertRow(i)
+        rows[i] = table.insertRow(i);
         for (let j = 0; j < numColumns; j++)
         {
             let cell = rows[i].insertCell();
-            cell.setAttribute("style", "width: 40px;height: 40px")
+            cell.setAttribute("style", "width: 40px;height: 40px");
             cell.setAttribute("ondrop", "drop(event)");
-            cell.setAttribute("ondragover", "allowDrop(event)")
+            cell.setAttribute("ondragover", "allowDrop(event)");
             cell.id = "cell" + i + j;
         }
     }
@@ -50,4 +46,13 @@ function createTable()
 function resetTable()
 {
 
+    for (let i = 0; i < Number(document.getElementById("numRows").value); i++)
+    {
+        for (let j = 0; j < Number(document.getElementById("numColumns").value); j++)
+        {
+            let cell = document.getElementById("cell" + i + j);
+            cell.setAttribute(
+                "style", "background-color:white;width: 40px;height: 40px");
+        }
+    }
 }
