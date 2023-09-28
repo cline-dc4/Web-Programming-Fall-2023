@@ -3,6 +3,13 @@
     <head>
         <title> HW4: DC</title>
         <script src="HW04.js"></script>
+        <style>
+            .colorCell
+            {
+                width: 40px;
+                height: 40px;
+            }
+        </style>
     </head>
     <body>
         <!--list for inputs of numRows and numColumns-->
@@ -21,8 +28,21 @@
         <table id="colorTable" ondrop="drop(event)" ondragover="allowDrop(event)"></table>
 
         <!--table with colors to choose from-->
-        <table>
-            
+        <table border="1">
+            <tr>
+                <td class="colorCell" style="background-color:violet"
+                draggable="true"></td>
+                <td class="colorCell" style="background-color:slateblue"
+                draggable="true"></td>
+                <td class="colorCell" style="background-color:lightseagreen"
+                draggable="true"></td>
+                <td class="colorCell" style="background-color:darkcyan"
+                draggable="true"></td> 
+                <td class="colorCell" style="background-color:seagreen"
+                draggable="true"></td>
+                <td class="colorCell" style="background-color:darkgreen"
+                draggable="true"></td>
+            </tr>
         </table>
     </body>
 </html>
