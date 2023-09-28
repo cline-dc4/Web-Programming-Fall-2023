@@ -40,6 +40,7 @@ function createTable()
             cell.id = "cell" + i + j;
         }
     }
+    document.getElementById("createTableB").remove();
 }
 
 //resets the table 
