@@ -1,0 +1,20 @@
+h2
+{
+    text-align: center;
+    background-color: slateblue;
+}
+p
+{
+    font-family: sans-serif;
+    background-color:antiquewhite;
+}
+.threeFavorites
+{
+    font-size: 150%;
+    background-color: antiquewhite;
+}
+#myFavorite
+{
+    font-size: 200%;
+    background-color: darkorange;
+}
