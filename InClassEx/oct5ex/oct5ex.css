@@ -1,0 +1,44 @@
+p
+{
+    border-color: slategray;
+    border-style: double;
+    border-spacing: 50px;
+    padding-left: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    border-width: 20px;
+}
+
+div
+{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    background-color: rgb(215, 175, 234);
+}
+
+div#div2 > div
+{
+    background-color: lavender;
+    flex-grow: 4;
+}
+
+div#gridDiv
+{
+    display: grid;
+    grid-template-columns: 250px auto 250px;
+
+}
+
+div#div17
+{
+    grid-column: 1/span2;
+    grid-row: 2;
+}
+
+div.div18
+{
+    grid-column: 1 / 4;
+    grid-row: 1;
+}
