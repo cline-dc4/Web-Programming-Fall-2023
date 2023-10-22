@@ -1,4 +1,4 @@
-import DisplayAllComponents() from "./HW07.tsx";
+import DisplayAllComponents from "./HW07.tsx";
 
 function App()
 {
