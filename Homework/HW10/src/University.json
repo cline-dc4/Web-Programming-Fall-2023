@@ -1,0 +1,29 @@
+[{
+  "Name": "Corban University", 
+  "President": "John Mark Yeats", 
+  "YearEstablished": "1935", 
+  "State": "Oregon", 
+  "Tuition": "36088", 
+  "URL": "http://www.corban.edu"
+},
+
+{
+  "Name": "Bethel University", 
+  "President": "Ross Allen", 
+  "YearEstablished": "1871", 
+  "State": "Minnesota", 
+  "Tuition": "42760",
+  "URL": "www.bethel.edu"
+},
+
+{
+  "Name": "University of Washington",
+  "President": "Ana Mari Cauce",
+  "YearEstablished": "1861",
+  "State": "Washington",
+  "Tuition": "12242",
+  "URL": "https://www.washington.edu/"
+}]
+
+
+
