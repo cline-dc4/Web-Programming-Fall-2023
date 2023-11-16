@@ -13,13 +13,17 @@ function runServer()
         response.writeHead(200, {"Content-Type": "text/html"});
         response.write("<h1> Lecture 21 </h1>");
         response.write(functions.printHello());
-        if(String(url).includes("CountVowels") == true)
+        if(url.parse(request.url).pathname.includes("CountVowels") == true)
         {
             response.write(functions.wordFunction(request.url));
         }
-        else if(String(url).includes("Reverse") == true)
+        else if(url.parse(request.url).pathname.includes("Reverse") == true)
         {
             response.write(functions.reverseWord(request.url));
+        }
+        else
+        {
+            response.write("<p>Error: No instruction found</p>")
         }
         console.log("Pathname in main page: " + url.parse(request.url).pathname);
         response.end();

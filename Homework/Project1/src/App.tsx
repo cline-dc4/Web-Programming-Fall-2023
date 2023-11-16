@@ -1,15 +1,13 @@
 
 import './index.css'
-import { GameInfo, CreateCards, GuessButton } from './GameDisplay'
+import { CreateBoard } from './GameDisplay'
 
 function App() 
 {
 
     return (
         <>
-            <GameInfo/>
-            <CreateCards/>
-            <GuessButton/>
+            <CreateBoard/>
         </>
     )
 }
