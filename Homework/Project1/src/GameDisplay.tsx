@@ -42,6 +42,9 @@ imageArray[10] = umbreon;
 // the values will coorespond with the imageArray indices
 let randomArray:Array<Array<Number>> = randomizeArray()
 
+// an array starting with 20 zeros to edit the imageNumbers array.
+let editImageNumbers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
 // the function that holds everything else and is called by App.tsx
 function CreateBoard()
 {
@@ -54,11 +57,9 @@ function CreateBoard()
     // An array of booleans that say whether a given card number is matched
     // or not.
     let isMatched:Array<Boolean> = [];    
-    for(let i = 0; i < 10; i++)
-        isMatched[i] = true;
 
     // An array of values between 0 and 10 that determine the image.
-    const [imageNumbers, setImageNumbers] = useState<Array<Number>>([]);    
+    const [imageNumbers, setImageNumbers] = useState<Array<Number>>(editImageNumbers);    
     
     //stores the key of the first card that was selected.
     const [firstSelected, setFirstSelected] = useState(null);
@@ -82,28 +83,32 @@ function CreateBoard()
     // This function creates the table that the cards are displayed in.
     function CreateCards()
     {
-        //returns the table using a map of the values array
+        // is set to -4 so that i can get num from 0 to 19 in the buttons...
+        // i know its janky but it works
+        let i = -4;
+        // returns the table using a map of the values array
         return(
         <div>
             <table border="2">
                 <tbody>
-                    {randomArray.map((items) => ReturnRow(items))}
+                    {randomArray.map((items) => ReturnRow(items, i=i+4))}
                 </tbody>
             </table>
         </div>);
     }
 
-    //a function used in mapping the rows of the table
-    function ReturnRow(array:Array<Number>)
+    // a function used in mapping the rows of the table
+    function ReturnRow(array:Array<Number>, i:Number)
     {
         return <tr>
             {array.map((subitem:Number) => 
             (<td><img 
                 class="card"
-                id={subitem}
-                src={imageArray[imageNumbers[subitem]]}
+                id={subitem+1}
+                num={i}
+                src={imageArray[imageNumbers[i++]]}
                 disabled={!isMatched[Number(subitem)]}
-                onClick={(event) => cardPress(subitem, event)}>
+                onClick={(event) => cardPress(subitem+1, event)}>
             </img></td>))}
             </tr>
     }
@@ -111,19 +116,14 @@ function CreateBoard()
     //This function handles logic when a card is pressed.
     function cardPress(key:Number, event)
     {
-        if (firstSelected == null)
-        {
-            let tempArray:Array<Number> = [];
-            tempArray.fill(0, 10, 0);
-            setImageNumbers(tempArray);
-        }
+        let num = Number(event.target.getAttribute('num'))
+        console.log(Number(num))
+        editImageNumbers[Number(num)]=key;
+        setImageNumbers(editImageNumbers)
+        console.log(imageNumbers)
+        console.log(event.target);
 
-        console.log(document.getElementById(String(key)));
-        event.target.style.backgroundImage 
-            = `url(${imageArray[Number(key)+1]})`;
-        setTimeout(() => {
         setPlayerTurn(((playerTurn+1)%2))
-        }, 3000);
     }
 
     return (
