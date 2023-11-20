@@ -1,6 +1,5 @@
 .card
 {
-  background-image: url("cardImages/cardback.png");
   background-position: center;
   background-size:cover;
   height: 128px;

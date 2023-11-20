@@ -1,33 +1,46 @@
 import { useState } from "react";
+// imports for the images used for the cards
+import cardBack from "./cardImages/cardback.png";
+import dewott from "./cardImages/dewott.jpg";
+import dragonair from "./cardImages/dragonair.jpg";
+import flareon from "./cardImages/flareon.jpg";
+import happiny from "./cardImages/happiny.jpg";
+import munchlax from "./cardImages/munchlax.jpg";
+import ninetales from "./cardImages/ninetales-alolan.jpg";
+import solgaleo from "./cardImages/solgaleo.jpg";
+import swablu from "./cardImages/swablu.jpg";
+import togekiss from "./cardImages/togekiss.jpg";
+import umbreon from "./cardImages/umbreon.jpg";
 
 // All the global variables
 // ------------------------
 // initializing an array that holds image objects for the cards.
 let imageArray:Array<String> = [];
 // card back
-imageArray[0] = '"cardImages/cardback.png"';
+imageArray[0] = cardBack;
 // image 1
-imageArray[1] = '"cardImages/dewott.jpg"';
+imageArray[1] = dewott;
 // image 2
-imageArray[2] = '"cardImages/dragonair.jpg"';
+imageArray[2] = dragonair;
 // image 3
-imageArray[3] = '"cardImages/flareon.jpg"';
+imageArray[3] = flareon;
 // image 4
-imageArray[4] = '"cardImages/happiny.jpg"';
+imageArray[4] = happiny;
 // image 5
-imageArray[5] = '"cardImages/munchlax.jpg"';
+imageArray[5] = munchlax;
 // image 6
-imageArray[6] = '"cardImages/ninetales-alolan.jpg"';
+imageArray[6] = ninetales;
 // image 7
-imageArray[7] = '"cardImages/solgaleo.jpg"';
+imageArray[7] = solgaleo;
 // image 8
-imageArray[8] = '"cardImages/swablu.jpg"';
+imageArray[8] = swablu;
 // image 9
-imageArray[9] = '"cardImages/togekiss.jpg"';
+imageArray[9] = togekiss;
 // image 10
-imageArray[10] = '"cardImages/umbreon.jpg"';
-
-
+imageArray[10] = umbreon;
+// array that will fill the buttons with random numbers 1-10, two of each.
+// the values will coorespond with the imageArray indices
+let randomArray:Array<Array<Number>> = randomizeArray()
 
 // the function that holds everything else and is called by App.tsx
 function CreateBoard()
@@ -40,11 +53,18 @@ function CreateBoard()
     const [playerTwoPoints, setPlayerTwoPoints] = useState(0);
     // An array of booleans that say whether a given card number is matched
     // or not.
-    const [isMatched, setIsMatched] = useState([]);
+    let isMatched:Array<Boolean> = [];    
+    for(let i = 0; i < 10; i++)
+        isMatched[i] = true;
 
-    // array that will fill the buttons with random numbers 1-10, two of each.
-    // the values will coorespond with the imageArray indices
-    const [randomArray, setRandomArray] = useState<Array<Array<number>>>(randomizeArray());
+    // An array of values between 0 and 10 that determine the image.
+    const [imageNumbers, setImageNumbers] = useState<Array<Number>>([]);    
+    
+    //stores the key of the first card that was selected.
+    const [firstSelected, setFirstSelected] = useState(null);
+    // stores the key of the second card that was selected.
+    const [secondSelected, setSecondSelected] = useState(null);
+
     // This function just displays the information at the top
     // of the webpage like who's turn it is or how many points they have.
     function GameInfo()
@@ -74,45 +94,48 @@ function CreateBoard()
     }
 
     //a function used in mapping the rows of the table
-    function ReturnRow(array)
+    function ReturnRow(array:Array<Number>)
     {
         return <tr>
             {array.map((subitem:Number) => 
-            (<td><button class="card" key={subitem} 
-            onClick={() => cardPress(subitem)}></button></td>))}
+            (<td><img 
+                class="card"
+                id={subitem}
+                src={imageArray[imageNumbers[subitem]]}
+                disabled={!isMatched[Number(subitem)]}
+                onClick={(event) => cardPress(subitem, event)}>
+            </img></td>))}
             </tr>
     }
 
     //This function handles logic when a card is pressed.
-    function cardPress(key:Number)
+    function cardPress(key:Number, event)
     {
-
-    }
-
-    // This function has the guess button and a lot of the logic
-    // that goes with it.
-    function AdvTurnButton()
-    {
-        // This function advances the turn and grants points if needed.
-        function AdvTurnButtonPress()
+        if (firstSelected == null)
         {
-            setPlayerTurn(((playerTurn+1)%2));
+            let tempArray:Array<Number> = [];
+            tempArray.fill(0, 10, 0);
+            setImageNumbers(tempArray);
         }
-        return(
-            <div>
-                <button onClick ={() => AdvTurnButtonPress()}>Guess!</button>
-            </div>
-        )
+
+        console.log(document.getElementById(String(key)));
+        event.target.style.backgroundImage 
+            = `url(${imageArray[Number(key)+1]})`;
+        setTimeout(() => {
+        setPlayerTurn(((playerTurn+1)%2))
+        }, 3000);
     }
 
-    return(
+    return (
         <>
             <GameInfo/>
             <CreateCards/>
-            <AdvTurnButton/>
         </>
-    );
+    )
 }
+
+// this function produces a 2D array with two of each number 0-9
+// randomly assigned to indices.
 function randomizeArray()
 {
     console.log("Randomize");
@@ -125,13 +148,13 @@ function randomizeArray()
     let tempArray:Array<Number> = [];
     while(i < 20)
     {
-        num = (Math.floor(Math.random() * 10) + 1);
+        num = (Math.floor(Math.random() * 10) );
         // this switch statement checks the array for the number
         // potentially being added and makes sure there are less
         // than 2 of them before adding and moving to the next index.
         switch(num)
         {
-        case 1:
+        case 0:
             {
                 // loop through and check for duplicate numbers.
                 for(let j = 0; j < i; j++)
@@ -149,7 +172,7 @@ function randomizeArray()
                 }
                 break;
             }
-        case 2:
+        case 1:
             {
                 // loop through and check for duplicate numbers.
                 for(let j = 0; j < i; j++)
@@ -167,7 +190,7 @@ function randomizeArray()
                 }
                 break;
             }   
-        case 3:
+        case 2:
             {
                 // loop through and check for duplicate numbers.
                 for(let j = 0; j < i; j++)
@@ -185,6 +208,24 @@ function randomizeArray()
                 }
                 break;
             } 
+        case 3:
+            {
+                // loop through and check for duplicate numbers.
+                for(let j = 0; j < i; j++)
+                {
+                    if(tempArray[j] == num)
+                    {
+                        counter++;
+                    }
+                }
+                // if there are 0 or 1 of this number, add it.
+                if(counter < 2)
+                {
+                    tempArray[i] = num;
+                    i++;
+                }
+                break;
+            }
         case 4:
             {
                 // loop through and check for duplicate numbers.
@@ -293,40 +334,24 @@ function randomizeArray()
                 }
                 break;
             }
-        case 10:
-            {
-                // loop through and check for duplicate numbers.
-                for(let j = 0; j < i; j++)
-                {
-                    if(tempArray[j] == num)
-                    {
-                        counter++;
-                    }
-                }
-                // if there are 0 or 1 of this number, add it.
-                if(counter < 2)
-                {
-                    tempArray[i] = num;
-                    i++;
-                }
-                break;
-            }
         }
         counter = 0;
     }
 
-    let returnArray = []
+    let returnArray:Array<Array<Number>> = []
     // loops to transfer the random numbers into the 2D array randomArray.
+    let k = 0;
     for(let i = 0; i < 5; i++)
     {
         returnArray[i] = [0];
         for(let j = 0; j < 4; j++)
         {
-            returnArray[i][j] = tempArray[i+j]
+            returnArray[i][j] = tempArray[k]
+            k++
         }
         
     }
-    console.log(tempArray)
+    console.log(returnArray)
     return(returnArray)
 }
 export {CreateBoard}
