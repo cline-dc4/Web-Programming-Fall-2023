@@ -41,9 +41,13 @@ imageArray[10] = umbreon;
 // array that will fill the buttons with random numbers 1-10, two of each.
 // the values will coorespond with the imageArray indices
 let randomArray:Array<Array<Number>> = randomizeArray()
-
 // an array starting with 20 zeros to edit the imageNumbers array.
 let editImageNumbers = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+// an array starting with 20 falses to edit the isMatched array
+let editIsMatched = [false, false, false, false, false,
+    false, false, false, false, false,
+    false, false, false, false, false,
+    false, false, false, false, false];
 
 // the function that holds everything else and is called by App.tsx
 function CreateBoard()
@@ -56,12 +60,10 @@ function CreateBoard()
     const [playerTwoPoints, setPlayerTwoPoints] = useState(0);
     // An array of booleans that say whether a given card number is matched
     // or not.
-    let isMatched:Array<Boolean> = [];    
-
+    const [isMatched, setIsMatched] = useState(editIsMatched);    
     // An array of values between 0 and 10 that determine the image.
     const [imageNumbers, setImageNumbers] = useState<Array<Number>>(editImageNumbers);    
-    
-    //stores the key of the first card that was selected.
+    // stores the key of the first card that was selected.
     const [firstSelected, setFirstSelected] = useState(null);
     // stores the key of the second card that was selected.
     const [secondSelected, setSecondSelected] = useState(null);
@@ -106,24 +108,41 @@ function CreateBoard()
                 class="card"
                 id={subitem+1}
                 num={i}
-                src={imageArray[imageNumbers[i++]]}
-                disabled={!isMatched[Number(subitem)]}
+                src={imageArray[imageNumbers[i]]}
+                disabled={!isMatched[i++]}
                 onClick={(event) => cardPress(subitem+1, event)}>
             </img></td>))}
             </tr>
     }
 
-    //This function handles logic when a card is pressed.
+    // This function handles logic when a card is pressed.
     function cardPress(key:Number, event)
-    {
-        let num = Number(event.target.getAttribute('num'))
-        console.log(Number(num))
-        editImageNumbers[Number(num)]=key;
-        setImageNumbers(editImageNumbers)
-        console.log(imageNumbers)
-        console.log(event.target);
+    {   
+        if(secondSelected == null)
+        {
+            let num = Number(event.target.getAttribute('num'))
+            editImageNumbers[Number(num)]=key;
+            setImageNumbers(editImageNumbers)
+            // if none selected, setFirstSelected and allow user
+            // to select the second card
+            if(firstSelected == null)
+                setFirstSelected(event);
+            // if second card is selected, check for match
+            else
+            {
+                setSecondSelected(event);
+                if(firstSelected.target.getAttribute('id') == secondSelected.target.getAttribute('id'))
+                {
+                    // change turn after 3 seconds and hide cards
+                    setTimeout(() => {
+                    setPlayerTurn(((playerTurn+1)%2))
+                    }, 3000);
+                }
+            }
+        }
 
-        setPlayerTurn(((playerTurn+1)%2))
+
+
     }
 
     return (
