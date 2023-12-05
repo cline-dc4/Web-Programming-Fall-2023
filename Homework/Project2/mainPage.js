@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const url = require('url');
 
 function start(route, handle) 
 {
@@ -10,11 +11,15 @@ function start(route, handle)
     console.log("Application started and Listening on port 8000");
     });
 
-    app.get("/mathmajor", (request,response) =>
+    app.get("/mathmajor*", (request,response) =>
     {
-        console.log("Method accessed")
-        //response.send("<h1>Math Major Schedule Creation</h1>");
-        response.send(createTable())
+        response.send("<h1>Math Major Schedule Creation</h1>"+ createTable());
+    });
+
+    app.get("/generatePlan", (request,response) =>
+    {
+        console.log("Method accessed");
+        response.send("<p>hello</p>");
     });
 
     function readFile(fileString)
@@ -37,7 +42,9 @@ function start(route, handle)
 
         // creating the table: 
         // initlaize and create row for headings
-        let table = "<table border='2'>" +
+        // and create a form for the submit and radio buttons
+        let table = "<form action='/generatePlan' method='GET'>" + 
+        "<table border='2'>" +
         "<tr>" +
             "<th>Earliest Year</th>" +
             "<th>Semester Offered</th>" +
@@ -56,14 +63,17 @@ function start(route, handle)
             {
                 table += "<td>" + tableArray[i][j] + "</td>";
             }
-            // the radio button for the final column
-            table += "<td><input type='radio' id =" + i + "></td>"
+            // the radio button for the final column, set the id to
+            // equal the class code
+            table += "<td><input type='checkbox' id=" + tableArray[i][2] + " name=" + i + "></td>"
             table += "</tr>";
+
         }
-        table += "</table";
+        table += "</table>";
+        // a submit button
+        table += "<input type='submit' value='Submit' id='submit'></form>";
         return(table);
     }
-
 }
 
 exports.start = start;
