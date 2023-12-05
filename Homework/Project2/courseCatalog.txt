@@ -3,19 +3,13 @@
 1	S	MTH244	Calculus II	A
 2	F	MTH254	Calculus III	O
 2	S	MTH293	Differential Equations	E
-2	F	MTH323	Number Theory	E
-2	F	MTH343	Combinatorics and Graph Theory	E
+2	F	MTH323	Linear Algebra	E
+3	F	MTH343	Combinatorics and Graph Theory	E
 2	F	MTH363	Discrete Mathematics	A
-2	S	MTH364	Number Theory	O
+3	S	MTH364	Number Theory	O
 2	F	MTH370	History of Math	O
-2	S	MTH403	Real Analysis	E
-2	S	MTH423	Abstract Algebra	O
+3	S	MTH403	Real Analysis	E
+3	S	MTH423	Abstract Algebra	O
 1	F	PHY215	Physics I	A
 1	F	CSC113	Introduction to Computer Science	A
 1	S	CSC124	Object Oriented Programming	A
-1	B	BIB103	Introduction to Biblical Literature	A
-1	B	BIB105	Bible Study Methods	A
-1	B	THE205	Introduction to Theology	A
-1	B	PHL213	The Worldview Seminar	A
-1	B	WRI123	College Writing I	A
-1	B	WRI132	College Writing II	A
