@@ -12,4 +12,4 @@
 3	S	MTH423	Abstract Algebra	O
 1	F	PHY215	Physics I	A
 1	F	CSC113	Introduction to Computer Science	A
-1	S	CSC124	Object Oriented Programming	A
+1	S	CSC124	Object Oriented Programming	S

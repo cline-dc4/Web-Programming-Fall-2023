@@ -5,10 +5,26 @@ const fs = require('fs');
 function start(year) 
 {
     //start the server
-    app.listen(8000, () => 
+    app.listen(8888, () => 
     {
-    console.log("Application started and Listening on port 8000");
+    console.log("Application started and Listening on port 8888");
     });
+
+    // Dr. Thomas's code
+    app.get("/myplan", (req, res) =>
+	{
+		let htmlString = "<html><head><title>CS major</title></head><body>";
+		htmlString += "<h3> Welcome to Corban!</h3>";
+	htmlString += "<form action = 'http://localhost:8888/mathmajor' method = 'GET'>";
+		htmlString += "<label> When do you plan to start? </label><input type='number' name='year'></br>";
+		htmlString += "<label> Pick a major: </label><select name='major'>";
+        htmlString += "<option value='cs'>Computer Science</option>";
+		htmlString += "<option value='math'>Mathematics</option></select><br>";
+		htmlString += "<input type='submit' /></br>";
+		htmlString += "</form></body></html>";
+		res.send(htmlString);
+	});
+
 
     app.get("/mathmajor*", (request,response) =>
     {
@@ -18,32 +34,67 @@ function start(year)
     // holds the logic for generating the plan
     app.get("/generatePlan*", (request,response) =>
     {
-        console.log("Method accessed");
-        // a 2d array that will hold the original data without the classes
+        // true if odd year, false if even year
+        let isOddYear = Boolean(year%2);
+        // a dictionary that will hold the original data without the classes
         // that have been selected.
-        let removedClassesArray = [];
+        let classDict = [];
         // this array holds the classes and the semesters they should
         // be taken in.
-        let semesterPlan = [];
+        let semesterPlan = {};
         // the string that will contain the output schedule.
         let htmlString = "";
         // import data from the txt file.
         let dataArray = readFile("./courseCatalog.txt");
-        console.log(dataArray);
+        // used in following for loop to avoid skipping indices in the array.
         let counter = 0;
-        // cut out classes that aren't being used.
+        // cut out classes that aren't being used and create a dictionary.
         for (let i = 0; i < dataArray.length; i++)
         {
+            
             if (request.query[i] != "default")
-                removedClassesArray[i-counter] = dataArray[i];
+            // add essenially an object to each index of the array 
+            // if it's not being excluded.
+                classDict[i-counter] = 
+                {
+                    earliestYear: dataArray[i][0],
+                    season: dataArray[i][1],
+                    classCode: dataArray[i][2],
+                    className: dataArray[i][3],
+                    oddEvenYear: dataArray[i][4]
+                };
             else
                 counter++;
         }
+        console.log(classDict);
+        console.log(classDict.length);
 
-        // the absolutly massive for loop that fills out the semester plan array
-        for(let i = 0; i < removedClassesArray; i++)
+        // the for loop that fills out the semester plan array
+        for(let i = 0; i < classDict.length; i++)
         {
-            
+            // year 1
+            if(classDict[i].earliestYear == 1)
+            {
+                console.log("year1");
+                // year 1 fall
+                if((classDict[i].season == 'B' || classDict[i].season == 'F') &&
+                    [(isOddYear && [classDict[i].oddEvenYear == 'A\r' 
+                    || classDict[i].oddEvenYear == 'O\r']) || (!isOddYear &&
+                    [classDict[i].oddEvenYear == 'A\r' || classDict[i].oddEvenYear == 'E\r'])])
+                {
+                    console.log(classDict[i].className);
+                }
+            }
+            // year 2
+            if(classDict.earliestYear == 2)
+            {
+
+            }
+            // years 3 and 4
+            if(classDict.earliestYear >= 3)
+            {
+
+            }
         }
 
         // display information on the page.
