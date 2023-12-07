@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-let year = null;
+let year = 0;
 function start() 
 {
     //start the server
-    app.listen(8888, () => 
+    app.listen(8000, () => 
     {
-    console.log("Application started and Listening on port 8888");
+    console.log("Application started and Listening on port 8000");
     });
 
     // Dr. Thomas's code
@@ -15,7 +15,7 @@ function start()
 	{
 		let htmlString = "<html><head><title>CS major</title></head><body>";
 		htmlString += "<h3> Welcome to Corban!</h3>";
-	htmlString += "<form action = 'http://localhost:8888/mathmajor' method = 'GET'>";
+	htmlString += "<form action = '/mathmajor' method = 'GET'>";
 		htmlString += "<label> When do you plan to start? </label><input type='number' name='year'></br>";
 		htmlString += "<label> Pick a major: </label><select name='major'>";
         htmlString += "<option value='cs'>Computer Science</option>";
@@ -47,6 +47,8 @@ function start()
         // this array holds the classes and the semesters they should
         // be taken in.
         let semesterPlan = [];
+        for(let i = 0; i < 8; i++)
+            semesterPlan[i] = "";
         // the string that will contain the output schedule.
         let htmlString = "";
         // import data from the txt file.
@@ -87,7 +89,8 @@ function start()
                 {
                     console.log("1 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    semesterPlan[0] += ""
+                    semesterPlan[0] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
@@ -99,7 +102,8 @@ function start()
                 {
                     console.log("1 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[1]).push(classDict[i]);
+                    semesterPlan[1] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
@@ -115,7 +119,8 @@ function start()
                 {
                     console.log("2 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[2]).push(classDict[i]);
+                    semesterPlan[2] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
@@ -127,7 +132,8 @@ function start()
                 {
                     console.log("2 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[3]).push(classDict[i]);
+                    semesterPlan[3] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
@@ -143,7 +149,8 @@ function start()
                 {
                     console.log("3 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[4]).push(classDict[i]);
+                    semesterPlan[4] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
@@ -155,7 +162,8 @@ function start()
                 {
                     console.log("3 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[5]).push(classDict[i]);
+                    semesterPlan[5] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
@@ -171,7 +179,8 @@ function start()
                 {
                     console.log("4 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[6]).push(classDict[i]);
+                    semesterPlan[6] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict.isUsed = true;
                 }
@@ -183,15 +192,39 @@ function start()
                 {
                     console.log("4 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
-                    Array(semesterPlan[7]).push(classDict[i]);
+                    semesterPlan[7] += "<tr><td>" + classDict[i].className +"</td><td>" +
+                        classDict[i].classCode + "</td></tr>";
                     // mark the class as used already
                     classDict[i].isUsed = true;
                 }
             }
         }
 
+
         console.log(semesterPlan)
+        // a counter used in the following for loop.
+        let yearCounter = 0;
         // the for loop that creates the htmlString with the semesterPlan array.
+        for (let i = 0; i < 8; i++)
+        {
+            // if fall:
+            if(i%2==0)
+            {
+                // increment year, as the following spring will be
+                htmlString += "<h3>Fall " + (Number(year) + Number(yearCounter)) + ":</h3>" +
+                "<table border='2'><tr><th>Course Name</th><th>Course Code</th></tr>" +
+                semesterPlan[i] + "</table>"; 
+                // in the next year.
+                yearCounter++;
+            }
+            else
+            {
+                htmlString += "<h3>Spring " + (Number(year) + Number(yearCounter)) + ":</h3>" +
+                "<table border='2'><tr><th>Course Name</th><th>Course Code</th></tr>" +
+                semesterPlan[i] + "</table>"; 
+            }
+        }
+        console.log(htmlString);
         // display information on the page.
         response.send("<h3>4 Year Plan:</h3>" + htmlString);
     });
