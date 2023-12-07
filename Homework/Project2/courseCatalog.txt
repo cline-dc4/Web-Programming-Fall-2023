@@ -6,10 +6,10 @@
 2	F	MTH323	Linear Algebra	E
 3	F	MTH343	Combinatorics and Graph Theory	E
 2	F	MTH363	Discrete Mathematics	A
-3	S	MTH364	Number Theory	O
+2	S	MTH364	Number Theory	O
 2	F	MTH370	History of Math	O
 3	S	MTH403	Real Analysis	E
 3	S	MTH423	Abstract Algebra	O
 1	F	PHY215	Physics I	A
 1	F	CSC113	Introduction to Computer Science	A
-1	S	CSC124	Object Oriented Programming	S
+1	S	CSC124	Object Oriented Programming	A

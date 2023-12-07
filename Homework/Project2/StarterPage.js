@@ -11,14 +11,6 @@ app.get("/myplan", (req, res) =>
 		htmlString += "</form></body></html>";
 		res.send(htmlString);
 	});
-	
-	app.get("/csmajor", (req, res) => 
-	{
-		let year = req.query.year;//url.parse(req.url).pathname.split("_")[1];
-		console.log("CS" + " year " + year);
-		res.send(readFile(year, "Courses.txt"));
-		
-	});
 
 	app.get("/mathmajor", (req, res) => 
 	{
