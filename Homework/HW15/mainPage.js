@@ -37,7 +37,7 @@ function start(route, handle)
         response.sendFile("D:/GitHub/Web-Programming-Fall-2023/Homework/HW15/Movies.html");
     });
 
-    app.get("localhost:8888/input.html", (request,response)=>
+    app.get("/input", (request,response)=>
     {
         response.sendFile("D:/GitHub/Web-Programming-Fall-2023/Homework/HW15/UserInputs.html");
     });

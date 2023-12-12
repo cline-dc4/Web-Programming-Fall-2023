@@ -1,0 +1,30 @@
+td
+{
+    background-color: rgb(245, 255, 255);
+}
+
+th
+{
+    background-color: rgb(255, 255, 245);
+    font-style: italic;
+}
+
+body 
+{ 
+	font: 75% georgia, sans-serif;
+	line-height: 1.88889;
+	color: #555753; 
+    padding-left: 10%;
+}
+
+tr, th, td
+{
+    padding: 5;
+    border:2px solid-black;
+}
+
+.schedule
+{
+    display: inline-block;
+    text-align: left;
+}

@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+// a global variable for transferring the year value between pages.
 let year = 0;
 function start() 
 {
+    // the CSS file contents
+    const CSS = readCSS("./style.css")
+
     //start the server
     app.listen(8000, () => 
     {
@@ -26,13 +30,16 @@ function start()
 	});
 
 
+    // call the createTable function to output the page where students
+    // can select the classes they have previously taken.
     app.get("/mathmajor*", (request,response) =>
     {
         year = request.query.year;
-        response.send("<h1>Math Major Schedule Creation</h1>"+ createTable(readFile("./courseCatalog.txt")));
+        response.send("<html><head><style>" + CSS + "</style></head><body><h1>Math Major Schedule Creation</h1>"+ 
+            createTable(readFile("./courseCatalog.txt")) + "</body></html>");
     });
 
-    // holds the logic for generating the plan
+    // holds the logic for generating the plan after students selected classes.
     app.get("/generatePlan*", (request,response) => 
     {
         // true if odd year, false if even year
@@ -87,7 +94,6 @@ function start()
                     !((isOddYear && classDict[i].oddEvenYear.includes('E')) || (!isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("1 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[0] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -100,7 +106,6 @@ function start()
                     !((!isOddYear && classDict[i].oddEvenYear.includes('E')) || (isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("1 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[1] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -117,7 +122,6 @@ function start()
                     !((!isOddYear && classDict[i].oddEvenYear.includes('E')) || (isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("2 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[2] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -130,7 +134,6 @@ function start()
                     !((isOddYear && classDict[i].oddEvenYear.includes('E')) || (!isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("2 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[3] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -147,7 +150,6 @@ function start()
                     !((isOddYear && classDict[i].oddEvenYear.includes('E')) || (!isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("3 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[4] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -160,7 +162,6 @@ function start()
                     !((!isOddYear && classDict[i].oddEvenYear.includes('E')) || (isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("3 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[5] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -177,7 +178,6 @@ function start()
                     !((!isOddYear && classDict[i].oddEvenYear.includes('E')) || (isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("4 fall " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[6] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -190,7 +190,6 @@ function start()
                     !((isOddYear && classDict[i].oddEvenYear.includes('E')) || (!isOddYear &&
                     classDict[i].oddEvenYear.includes('O'))))
                 {
-                    console.log("4 spring " + classDict[i].className);
                     // add the current class to the appropriate row of semesterPlan.
                     semesterPlan[7] += "<tr><td>" + classDict[i].className +"</td><td>" +
                         classDict[i].classCode + "</td></tr>";
@@ -201,32 +200,35 @@ function start()
         }
 
 
-        console.log(semesterPlan)
         // a counter used in the following for loop.
         let yearCounter = 0;
         // the for loop that creates the htmlString with the semesterPlan array.
         for (let i = 0; i < 8; i++)
         {
             // if fall:
-            if(i%2==0)
+            if(i%2 == 0)
             {
+                if(semesterPlan[i] != "")
+                {
+                    // format the heading and add the rows for the semester into the htmlString
+                    htmlString += "<h2>Fall " + (Number(year) + Number(yearCounter)) + ":</h2>" +
+                    "<table border='2'><tr><th>Course Name</th><th>Course Code</th></tr>" +
+                    semesterPlan[i] + "</table>"; 
+                }
                 // increment year, as the following spring will be
-                htmlString += "<h3>Fall " + (Number(year) + Number(yearCounter)) + ":</h3>" +
-                "<table border='2'><tr><th>Course Name</th><th>Course Code</th></tr>" +
-                semesterPlan[i] + "</table>"; 
                 // in the next year.
                 yearCounter++;
             }
-            else
+            if(i%2 == 1 && semesterPlan[i] != "")
             {
-                htmlString += "<h3>Spring " + (Number(year) + Number(yearCounter)) + ":</h3>" +
+                // format the heading and add the rows for the semester into the htmlString
+                htmlString += "<h2>Spring " + (Number(year) + Number(yearCounter)) + ":</h2>" +
                 "<table border='2'><tr><th>Course Name</th><th>Course Code</th></tr>" +
                 semesterPlan[i] + "</table>"; 
             }
         }
-        console.log(htmlString);
         // display information on the page.
-        response.send("<h3>4 Year Plan:</h3>" + htmlString);
+        response.send("<html><head><style>" + CSS + "</style></head><body><div class='schedule'><h1>4 Year Plan:</h1>" + htmlString + "</div></body></html>");
     });
 
     // reads in the file and returns a 2d array formated for a table.
@@ -241,8 +243,13 @@ function start()
         {
             tableArray[i] = dataArray[i].split("\t");
         }
-
         return(tableArray);
+    }
+
+    // reads in a CSS file and returns the raw text inside.
+    function readCSS(fileString)
+    {
+        return(fs.readFileSync(fileString, {encoding: 'utf8'}));
     }
 
     function createTable(tableArray)
